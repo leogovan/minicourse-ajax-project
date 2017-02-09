@@ -29,7 +29,16 @@ function loadData() {
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q='" + cityStr + "'&api-key=40a958b0172c4d64bf260608e5bfbc85";
     $.getJSON(url, function (data) {
         console.log(data);
-    });
+        $nytHeaderElem.text("New York Times Articles About " + cityStr);
+
+        articles = data.resposne.docs;
+        for (var i = 0; i < articles.length; i++) {
+            var article = articles[i];
+            $nytElem.append('<li class="article">' + '<a href="'+ article.web_url +'">' + article.headline.main + '</a>' + '<p>' + article.snippet + '</p>' + '</li>');
+        };
+    })
+
+        
 
 
     return false;
